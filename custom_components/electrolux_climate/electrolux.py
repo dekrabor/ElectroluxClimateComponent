@@ -45,8 +45,10 @@ class electrolux(Device):
         e.check_error(resp[0x22:0x24])
         dcry = self.decrypt(resp[0x38:])
 
+        #r_response = struct.unpack("h", dcry[0x06:0x08])[0]
         r_checksum = sum(dcry[0x08:], 0xC0AD) & 0xFFFF
-        r_response = struct.unpack("h", dcry[0x06:0x08])[0]
+        r_response = int.from_bytes(dcry[0x06:0x08], "little")
+
 
         """if r_checksum != r_response:
             raise e.BroadlinkException(DataValidationError, "Failed to validate JSON checksum.")"""
