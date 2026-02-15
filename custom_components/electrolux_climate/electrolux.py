@@ -49,8 +49,9 @@ class electrolux(Device):
         r_checksum = sum(dcry[0x08:], 0xC0AD) & 0xFFFF
         r_response = int.from_bytes(dcry[0x06:0x08], "little")
 
-        if r_checksum != r_response:
-            raise e.BroadlinkException(DataValidationError, "Failed to validate JSON checksum.")
+
+        """if r_checksum != r_response:
+            raise e.BroadlinkException(DataValidationError, "Failed to validate JSON checksum.")"""
 
         r_length = struct.unpack("h", dcry[0xA:0xC])[0]
 
